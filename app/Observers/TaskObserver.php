@@ -9,6 +9,7 @@ use App\Events\Task as TaskEvent;
 class TaskObserver
 {
 
+
     public function findOrCreateHarvestEntry($task)
     {
         UpdateHarvest::dispatch($task);

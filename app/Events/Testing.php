@@ -9,6 +9,7 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use JetBrains\PhpStorm\Pure;
 
 class Testing implements ShouldBroadcast
 {
@@ -32,4 +33,11 @@ class Testing implements ShouldBroadcast
     {
         return new Channel('testing');
     }
+
+    public function broadcastAs(): string
+    {
+        return "Testing";
+    }
+
+
 }

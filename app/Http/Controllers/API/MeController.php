@@ -1,5 +1,5 @@
 <?php
- 
+
 namespace App\Http\Controllers\API;
 
 use Spatie\QueryBuilder\QueryBuilder;
@@ -10,7 +10,7 @@ use App\Models\Task;
 use Illuminate\Http\Request;
 
 use App\Http\Resources\TaskCollection;
- 
+
 class MeController extends APIController
 {
 
@@ -33,11 +33,11 @@ class MeController extends APIController
     {
 
         return new TaskCollection(
-                collect(QueryBuilder::for(Task::class)->allowedFilters($this->filters())
+            collect(QueryBuilder::for(Task::class)->allowedFilters($this->filters())
                 ->where('user_id', '=', auth()->user()->id)
-                ->get()
+                ->paginate(100)
                 ->sortByDesc('weight'))
-                ->paginate(100));
-    
+        );
+
     }
 }
