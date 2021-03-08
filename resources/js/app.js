@@ -23,3 +23,16 @@ Vue.use(plugin)
 import App from './Main'
 
 import router from './router'
+
+import {TinkerComponent} from 'botman-tinker';
+
+Vue.component('botman-tinker', TinkerComponent);
+
+new Vue({
+    el: '#app',
+    router,
+    store,
+    icons: { ...linearSet, ...flagSet, ...brandSet, ...duotoneSet, ...solidSet },
+    template: '<App/>',
+    components: { App },
+});

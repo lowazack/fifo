@@ -18,4 +18,5 @@ mix.js('resources/js/app.js', 'public/js')
         '~': path.join(__dirname, 'node_modules')
     })
     .vue()
-    .sass('resources/scss/app.scss', 'public/css');
+    .sass('resources/scss/app.scss', 'public/css')
+    .sourceMaps();

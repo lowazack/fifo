@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::any('{any}', function () {
+    return view('fifo');
+})->where('any', '^(?!(api|botman).*$).*')->name('fifo');
