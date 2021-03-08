@@ -1,0 +1,71 @@
+$font-size-xs:    $font-size-base * .7 !default;
+$font-size-xl:    $font-size-base * 1.50 !default;
+
+$line-height-xs:    $line-height-base !default;
+$line-height-xl:    $line-height-base !default;
+
+$input-btn-padding-y-xs:    .25rem;
+$input-btn-padding-x-xs:    .5rem;
+$input-btn-font-size-xs:    $font-size-xs;
+$input-btn-line-height-xs:  $line-height-xs;
+
+$input-btn-padding-y-xl:    .5rem;
+$input-btn-padding-x-xl:    1rem;
+$input-btn-font-size-xl:    $font-size-xl;
+$input-btn-line-height-xl:  $line-height-xl;
+
+$btn-padding-y-xs:    $input-btn-padding-y-xs;
+$btn-padding-x-xs:    $input-btn-padding-x-xs;
+$btn-font-size-xs:    $input-btn-font-size-xs;
+$btn-line-height-xs:  $input-btn-line-height-xs;
+
+$btn-padding-y-xl:    $input-btn-padding-y-xl;
+$btn-padding-x-xl:    $input-btn-padding-x-xl;
+$btn-font-size-xl:    $input-btn-font-size-xl;
+$btn-line-height-xl:  $input-btn-line-height-xl;
+
+$input-padding-y-xs:    $input-btn-padding-y-xs;
+$input-padding-x-xs:    $input-btn-padding-x-xs;
+$input-font-size-xs:    $input-btn-font-size-xs;
+$input-line-height-xs:  $input-btn-line-height-xs;
+
+$input-padding-y-xl:    $input-btn-padding-y-xl;
+$input-padding-x-xl:    $input-btn-padding-x-xl;
+$input-font-size-xl:    $input-btn-font-size-xl;
+$input-line-height-xl:  $input-btn-line-height-xl;
+
+$input-height-xs:  add($input-line-height-xs * 1em, add($input-padding-y-xs * 2, $input-height-border, false));
+$input-height-xl:  add($input-line-height-xl * 1em, add($input-padding-y-xl * 2, $input-height-border, false));
+
+$border-radius-xl:  .35rem !default;
+$border-radius-xs:  .15rem !default;
+
+$btn-border-radius-xl:  $border-radius-xl !default;
+$btn-border-radius-xs:  $border-radius-xs !default;
+$input-border-radius-xl:  $border-radius-xl !default;
+$input-border-radius-xs:  $border-radius-xs !default;
+
+
+.btn-xs {
+	@include button-size($btn-padding-y-xs, $btn-padding-x-xs, $btn-font-size-xs, $btn-line-height-xs, $btn-border-radius-xs);
+}
+
+.btn-xl {
+	@include button-size($btn-padding-y-xl, $btn-padding-x-xl, $btn-font-size-xl, $btn-line-height-xl, $btn-border-radius-xl);
+}
+
+.form-control-xs {
+	height: $input-height-xs;
+	padding: $input-padding-y-xs $input-padding-x-xs;
+	@include font-size($input-font-size-xs);
+	line-height: $input-line-height-xs;
+	@include border-radius($input-border-radius-xs);
+}
+
+.form-control-xl {
+	height: $input-height-xl;
+	padding: $input-padding-y-xl $input-padding-x-xl;
+	@include font-size($input-font-size-xl);
+	line-height: $input-line-height-xl;
+	@include border-radius($input-border-radius-xl);
+}

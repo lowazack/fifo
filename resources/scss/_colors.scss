@@ -1,0 +1,13 @@
+@each $name, $color in $fifocolors {
+  .fifo-color-lighter-#{$name} {
+    background-color: lighten($color, 35) !important;
+    color: darken-text($color, 35) !important;
+    &.with-hover:hover {
+    	background-color: lighten($color, 30) !important;
+    }
+  }
+  .fifo-color-#{$name} {
+    background-color: $color !important;
+    color: color-yiq($color) !important;
+  }
+}

@@ -1,0 +1,76 @@
+@import url("https://cloud.typography.com/6457836/7373412/css/fonts.css");
+
+@font-face {
+  font-family: "HankenSans";
+  src: url(/fonts/HankenSans-Black.woff2) format("woff2"), url(/fonts/HankenSans-Black.woff) format("woff");
+  font-weight: 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: "HankenSans";
+  src: url(/fonts/HankenSans-Bold.woff2) format("woff2"), url(/fonts/HankenSans-Bold.woff) format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "HankenSans";
+  src: url(/fonts/HankenSans-BoldItalic.woff2) format("woff2"), url(/fonts/HankenSans-BoldItalic.woff) format("woff");
+  font-weight: 700;
+  font-style: italic;
+}
+@font-face {
+  font-family: "HankenSans";
+  src: url(/fonts/HankenSans-ExtraBold.woff2) format("woff2"), url(/fonts/HankenSans-ExtraBold.woff) format("woff");
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: "HankenSans";
+  src: url(/fonts/HankenSans-ExtraBoldItalic.woff2) format("woff2"), url(/fonts/HankenSans-ExtraBoldItalic.woff) format("woff");
+  font-weight: 800;
+  font-style: italic;
+}
+@font-face {
+  font-family: "HankenSans";
+  src: url(/fonts/HankenSans-Italic.woff2) format("woff2"), url(/fonts/HankenSans-Italic.woff) format("woff");
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: "HankenSans";
+  src: url(/fonts/HankenSans-Light.woff2) format("woff2"), url(/fonts/HankenSans-Light.woff) format("woff");
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: "HankenSans";
+  src: url(/fonts/HankenSans-LightItalic.woff2) format("woff2"), url(/fonts/HankenSans-LightItalic.woff) format("woff");
+  font-weight: 100;
+  font-style: italic;
+}
+@font-face {
+  font-family: "HankenSans";
+  src: url(/fonts/HankenSans-Medium.woff2) format("woff2"), url(/fonts/HankenSans-Medium.woff) format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "HankenSans";
+  src: url(/fonts/HankenSans-MediumItalic.woff2) format("woff2"), url(/fonts/HankenSans-MediumItalic.woff) format("woff");
+  font-weight: 500;
+  font-style: italic;
+}
+@font-face {
+  font-family: "HankenSans";
+  src: url(/fonts/HankenSans-Regular.woff2) format("woff2"), url(/fonts/HankenSans-Regular.woff) format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+	font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: "HankenSans", sans-serif;
+}

@@ -1,0 +1,23 @@
+// Fonts
+//@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+
+// // Variable overrides
+@import "variables";
+@import "typography";
+
+@import '~bootstrap/scss/bootstrap';
+@import '~vue-multiselect/dist/vue-multiselect.min.css';
+@import "~@coreui/coreui-pro/scss/coreui";
+//@import "~@coreui/icons/scss/free.scss";
+
+//@import "~@coreui/icons/scss/flag";
+//@import "~@coreui/icons/scss/brand";
+
+// Import sections
+@import "overrides";
+@import "functions";
+@import "utilities";
+@import "colors";
+//
+//
+//@import "global";

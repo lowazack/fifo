@@ -1,0 +1,9 @@
+@function darken-text($color, $amount){
+  @if $color == #FFFFFF {
+    @return $gray-700;
+  }
+  @else {
+    @return darken($color, $amount);
+  }
+
+}
