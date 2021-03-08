@@ -20,6 +20,8 @@ const plugin = {
 
 Vue.use(plugin)
 
+import './components/globals'
+
 import App from './Main'
 
 import router from './router'
