@@ -392,7 +392,6 @@ function configRoutes() {
                     ]
                 },
                 {
-                    name: 'Jobs',
                     path: 'jobs',
                     component: {
                         render(c) {
@@ -536,7 +535,6 @@ function configRoutes() {
                     ]
                 },
                 {
-                    name: 'Clients',
                     path: 'clients',
                     component: {
                         render(c) {
