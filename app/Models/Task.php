@@ -8,10 +8,14 @@ use App\Traits\Completable;
 use App\Traits\Weighted;
 use App\Models\Client;
 use App\Models\Job;
+use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 
 class Task extends BaseModel
 {
-    use SoftDeletes, Completable;
+    use SoftDeletes, Completable,Uuid;
+
+    protected $keyType = 'string';
+    public $incrementing = false;
 
     /**
      * The attributes that are mass assignable.
@@ -153,7 +157,7 @@ class Task extends BaseModel
      */
     public function setCompleteAttribute($value)
     {
-        $this->attributes['completed_at'] = ($value == true) ? \Carbon::now() : null; 
+        $this->attributes['completed_at'] = ($value == true) ? \Carbon::now() : null;
     }
 
     /**

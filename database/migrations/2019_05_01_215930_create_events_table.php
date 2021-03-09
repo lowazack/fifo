@@ -15,10 +15,8 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->bigIncrements('id');
-
-            $table->unsignedBigInteger('user_id');
+            $table->foreignUuid('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-
             $table->string('name', 150);
             $table->string('provider', 20);
             $table->dateTimeTz('start_date');

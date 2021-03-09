@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\OrderByStartDate;
 
 class TimeEntry extends BaseModel
 {
-    use SoftDeletes, OrderByStartDate;
+    use SoftDeletes, OrderByStartDate, Uuid;
 
     /**
      * The attributes that are mass assignable.

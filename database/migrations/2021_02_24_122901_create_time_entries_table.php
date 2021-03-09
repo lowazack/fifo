@@ -15,12 +15,12 @@ class CreateTimeEntriesTable extends Migration
     {
         Schema::create('time_entries', function (Blueprint $table) {
 
-            $table->bigIncrements('id');
+            $table->uuid('id');
 
-            $table->unsignedBigInteger('task_id')->nullable();
+            $table->foreignUuid('task_id')->nullable();
             $table->foreign('task_id')->references('id')->on('tasks');
 
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreignUuid('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
 
             $table->timestamp('start');

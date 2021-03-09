@@ -10,10 +10,16 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\MailResetPasswordNotification;
 use Carbon\Carbon;
 use App\Traits\FullTextSearch;
+use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
+
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable, SoftDeletes, FullTextSearch;
+    use HasApiTokens, Notifiable, SoftDeletes, FullTextSearch, Uuid;
+
+    protected $keyType = 'string';
+    public $incrementing = false;
+
 
     /**
      * The attributes that are mass assignable.
@@ -24,7 +30,7 @@ class User extends Authenticatable
         'first_name', 'last_name', 'email',
     ];
 
-        /**
+    /**
      * The attributes that are returned in API calls.
      *
      * @var array
@@ -95,7 +101,7 @@ class User extends Authenticatable
     /**
      * Scope a query to only include users where time tracking is available.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeTimeTrackable($query)
@@ -201,7 +207,7 @@ class User extends Authenticatable
         $start = $date->copy()->startOfDay();
 
         $timeentry = \Harvest::timeEntry()->get($this->harvest, ' ', ' ', null, 'true', null, $start->format('Y-m-d'));
-            
+
         $count = $timeentry->time_entries->count();
 
         return ($count > 0);
@@ -222,7 +228,7 @@ class User extends Authenticatable
     /**
      * Send the password reset notification.
      *
-     * @param  string  $token
+     * @param string $token
      * @return void
      */
     public function sendPasswordResetNotification($token)

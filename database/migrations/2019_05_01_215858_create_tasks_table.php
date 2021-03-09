@@ -14,17 +14,13 @@ class CreateTasksTable extends Migration
     public function up()
     {
         Schema::create('tasks', function (Blueprint $table) {
-            $table->bigIncrements('id');
-
+            $table->uuid('id')->primary();
             $table->unsignedBigInteger('client_id')->nullable();
             $table->foreign('client_id')->references('id')->on('clients');
-
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreignUuid('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
-
             $table->unsignedBigInteger('job_id')->nullable();
             $table->foreign('job_id')->references('id')->on('jobs');
-
             $table->string('provider')->nullable();
             $table->string('estimate')->nullable();
             $table->string('quote')->nullable();
@@ -36,7 +32,6 @@ class CreateTasksTable extends Migration
             $table->string('link')->nullable();
             $table->text('meta')->nullable();
             $table->boolean('movable')->default(1);
-
             $table->timestamps();
             $table->softDeletes();
         });
