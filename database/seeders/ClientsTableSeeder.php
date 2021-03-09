@@ -11,12 +11,12 @@ class ClientsTableSeeder extends Seeder
 
     public function run()
     {
-        factory(Client::class, 10)->create()->each(function ($client) {
+        $clients = ["Antibrand", "Jimmy's Iced Coffee", "Many", "Amura", "Measmerize", "Rollover", "Silicon South", "JPS Communications"];
 
-            $contacts = factory(Contact::class, rand(1, 20))->make();
-
-            $client->contacts()->saveMany($contacts);
-        });
-        ;
+        foreach ($clients as $client){
+            Client::create([
+                'name' => $client
+             ]);
+        }
     }
 }

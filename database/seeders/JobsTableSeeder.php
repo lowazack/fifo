@@ -12,16 +12,13 @@ class JobsTableSeeder extends Seeder
 
     public function run()
     {
-        factory(Job::class, 35)->create()->each(function ($job) {
+        $jobs = ["Testing", "[MANY] Admin", "[MANY] Marketing & Sales Plan", "Marketing Strategy", "Marketing and Sales Strategy", "[MANY] HIT LIST", "[ANTI] Admin", "[ETH] Pre-launch", "[ANTI] Content Board", "[AMUR] Initial Rebrand", "[JIM] Adhoc", "[JIM] Subscriptions", "[MEAS] Report", "[MEAS] Adhoc", "[ROLL] Homepage Redesign", "[SISO] Adhoc", "[JPS] Adhoc", "To Do"];
 
-            $Tasks = factory(Task::class, rand(1, 20))->create()->each(function ($Task) {
-
-                $skills = factory(Skill::class, rand(1, 20))->create();
-
-                $Task->skills()->attach($skills);
-            });
-
-            $job->tasks()->saveMany($Tasks);
-        });
+        foreach ($jobs as $job){
+            Job::create([
+                'name' => $job,
+                'provider' => 'asana',
+            ]);
+        }
     }
 }

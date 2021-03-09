@@ -85,5 +85,41 @@ class UserSeeder extends Seeder
                 'sunday' => [],
             ]
         ]);
+
+        User::create([
+            'first_name' => 'Jack',
+            'last_name' => 'Loaiza',
+            'email' => 'jack@many.co.uk',
+            'password' => 'jackpassword',
+            'jira' => 'jack@many.co.uk',
+            'googlecalendar' => 'jack@many.co.uk',
+            'phone' => '07411997499',
+            'slack' => 'U018X8EGATY',
+            'warns' => 0,
+            'availability' => [
+                'monday' => [
+                    '0930:1300',
+                    '1400:1730'
+                ],
+                'tuesday' => [
+                    '0930:1300',
+                    '1400:1730'
+                ],
+                'wednesday' => [
+                    '0930:1300',
+                    '1400:1730'
+                ],
+                'thursday' => [
+                    '0930:1300',
+                    '1400:1730'
+                ],
+                'friday' => [
+                    '0930:1300',
+                    '1400:1730'
+                ],
+                'saturday' => [],
+                'sunday' => [],
+            ]
+        ]);
     }
 }
