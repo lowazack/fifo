@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Events\Timer as TimerEvent;
+use App\Events\TimerUpdated as TimerEvent;
 use App\Models\TimeEntry;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;

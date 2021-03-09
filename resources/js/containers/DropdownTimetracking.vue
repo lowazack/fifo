@@ -19,9 +19,9 @@
             <strong>Time Tracking</strong>
         </CDropdownHeader>
         <Stopwatch/>
-<!--        <div class="p-3 border-top" v-for="entry in timeEntries" >-->
-<!--            <TimeEntry :entry="entry" :key="entry.id"/>-->
-<!--        </div>-->
+        <div class="p-3 border-top" v-for="entry in timeEntries" >
+            <TimeEntry :entry="entry" :key="entry.id"/>
+        </div>
     </CDropdown>
 </template>
 <script>
@@ -64,14 +64,8 @@ export default {
     },
     mounted() {
         this.setTimeEntries()
-        Echo.channel('timers')
-            .listen('TimerCreated', () => {
-                this.setTimeEntries()
-            })
-            .listen('TimerUpdated', () => {
-                this.setTimeEntries()
-            })
-            .listen('TimerDeleted', () => {
+        Echo.channel('user-timers')
+            .listen('.Timers-Updated', () => {
                 this.setTimeEntries()
             })
     }

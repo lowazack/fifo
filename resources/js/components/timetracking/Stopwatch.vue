@@ -129,7 +129,7 @@ export default {
         saveTimeEntry() {
             this.saving = true;
             axios.post(`/time-entries`, this.entryFormObject)
-                .then(() => {
+                .then((res) => {
                     this.saving = false;
                     this.timeEntry = TimeEntryModel
                 })
@@ -152,21 +152,21 @@ export default {
             let result = [];
 
             res.data.forEach((task) => {
-                if (!distinctJobs.includes(task.job_id)){
+                if (!distinctJobs.includes(task.job_id)) {
                     distinctJobs.push(task.job_id)
+                    result.push(
+                        {
+                            job: task.job.name,
+                            tasks: [task]
+                        }
+                    )
+                } else {
+                    result[distinctJobs.indexOf(task.job_id)]
+                        .tasks
+                        .push(task)
                 }
             })
 
-            distinctJobs.forEach(jobId => {
-                let tasks = res.data.filter(task => {
-                    return task.job_id === jobId
-                })
-
-                result.push({
-                    job: tasks[0].job.name,
-                    tasks: tasks
-                })
-            })
 
             this.projectsTasks = result
         })

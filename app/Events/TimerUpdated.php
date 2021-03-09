@@ -10,8 +10,9 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use JetBrains\PhpStorm\Pure;
 
-class Timer implements ShouldBroadcast
+class TimerUpdated implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -24,10 +25,9 @@ class Timer implements ShouldBroadcast
      * @param TimeEntry $timer
      * @param $name
      */
-    public function __construct(TimeEntry $timer, $name)
+    public function __construct()
     {
-        $this->name = $name;
-        $this->timer = $timer;
+//        $this->timer = $timer;
     }
 
     /**
@@ -39,10 +39,10 @@ class Timer implements ShouldBroadcast
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function broadcastAs()
+    public function broadcastAs(): string
     {
-        return $this->name;
+        return 'timer-updated';
     }
 }
