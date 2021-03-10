@@ -5,7 +5,7 @@
         <CCard>
           <CCardBody>
             <div v-if="!isRoleSelected">
-              <CSelect 
+              <CSelect
                 :value.sync="roleSelected"
                 :options="roles"
                 label="Select role assigned to menu"
@@ -33,7 +33,7 @@
                 </template>
               </CDataTable>
             </div>
-          </CCardBody>  
+          </CCardBody>
         </CCard>
       </transition>
     </CCol>
@@ -49,15 +49,15 @@ export default {
       isRoleSelected: false,
       roleSelected: 'guest',
       roles: [],
-      buffor: [],
+      buffer: [],
       tableData: [],
       fields: ['assigned', 'dropdown', 'slug', 'name'],
       thisMenuRole: null,
     }
   },
   methods: {
-    addElementToBuffor(data, icon){
-      this.buffor.push(
+    addElementToBuffer(data, icon){
+      this.buffer.push(
         {
           dropdown: icon,
           name: data['name'],
@@ -72,25 +72,25 @@ export default {
         switch(data[i]['slug']){
           case 'link':
             if(deep > 1){
-              this.addElementToBuffor(data[i], true);
+              this.addElementToBuffer(data[i], true);
             }else{
-              this.addElementToBuffor(data[i], false);
+              this.addElementToBuffer(data[i], false);
             }
           break
           case 'title':
-            this.addElementToBuffor(data[i], false);
+            this.addElementToBuffer(data[i], false);
           break;
           case 'dropdown':
-            this.addElementToBuffor(data[i], false);
+            this.addElementToBuffer(data[i], false);
             this.innerBuildArrayData(data[i]['elements'], deep+1)
           break;
         }
       }
     },
     buildArrayData(data){
-      this.buffor = [];
+      this.buffer = [];
       this.innerBuildArrayData(data, 1);
-      return this.buffor;
+      return this.buffer;
     },
     selectRole(){
       let self = this;

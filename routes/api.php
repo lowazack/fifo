@@ -56,6 +56,10 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     Route::apiResource('time-entries', 'API\TimeEntryController');
 
+    Route::get('me/time-entries', 'API\TimeEntryController@myTimeEntries');
+
+    Route::get('time-entries/pause-play/{id}', 'API\TimeEntryController@pausePlay');
+
     Route::apiResource('users', 'API\UserController');
 
 });

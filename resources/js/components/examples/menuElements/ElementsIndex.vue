@@ -69,12 +69,12 @@ export default {
     return {
       fields: ['dropdown', 'name', 'up', 'down', 'show', 'edit', 'delete'],
       items: [],
-      buffor: [],
+      buffer: [],
     }
   },
   methods: {
-    addElementToBuffor(data, icon) {
-      this.buffor.push(
+    addElementToBuffer(data, icon) {
+      this.buffer.push(
           {
             dropdown: icon,
             name: data['name'],
@@ -89,25 +89,25 @@ export default {
         switch (data[i]['slug']) {
           case 'link':
             if (deep > 1) {
-              this.addElementToBuffor(data[i], true);
+              this.addElementToBuffer(data[i], true);
             } else {
-              this.addElementToBuffor(data[i], false);
+              this.addElementToBuffer(data[i], false);
             }
             break
           case 'title':
-            this.addElementToBuffor(data[i], false);
+            this.addElementToBuffer(data[i], false);
             break;
           case 'dropdown':
-            this.addElementToBuffor(data[i], false);
+            this.addElementToBuffer(data[i], false);
             this.innerBuildArrayData(data[i]['elements'], deep + 1)
             break;
         }
       }
     },
     buildArrayData(data) {
-      this.buffor = [];
+      this.buffer = [];
       this.innerBuildArrayData(data, 1);
-      return this.buffor;
+      return this.buffer;
     },
     addElementToMenu() {
       this.$router.push({path: 'menuelement/create'});

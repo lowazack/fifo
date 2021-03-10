@@ -18,6 +18,10 @@ import JobView from "./views/Job";
 import Clients from "./views/Clients";
 import Client from "./views/Client";
 
+//Timers
+import Timers from "./views/Timers"
+
+
 // Authentication
 import Login from './views/AuthLogin';
 
@@ -578,6 +582,55 @@ function configRoutes() {
                                 links: [
                                     {name: 'Active', href: '/clients'},
                                     {name: 'Archived', href: '/clients/archived'}
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    path: 'timers',
+                    component: {
+                        render(c) {
+                            return c('router-view')
+                        }
+                    },
+                    children: [
+                        {
+                            path: '',
+                            name: 'Timers',
+                            meta: {
+                                requiresUser: true,
+                                pageTitle: "Timers",
+                                links: [
+                                    {name: 'Active', href: '/timers', active: true},
+                                    {name: 'Paused', href: '/timers/paused'}
+                                ]
+                            },
+                            component: Timers,
+                        },
+                        {
+                            path: 'paused',
+                            name: 'TimersPaused',
+                            component: Timers,
+                            meta: {
+                                requiresUser: true,
+                                pageTitle: "Clients",
+                                links: [
+                                    {name: 'Active', href: '/timers'},
+                                    {name: 'Paused', href: '/timers/paused', active: true}
+                                ]
+                            }
+                        },
+                        {
+                            path: ':userId',
+                            name: 'Client',
+                            component: Timers,
+                            meta: {
+                                requiresUser: true,
+                                pageTitle: "View Client",
+                                links: [
+                                    {name: 'Active', href: '/timers'},
+                                    {name: 'Paused', href: '/timers/paused'}
                                 ]
                             }
                         }

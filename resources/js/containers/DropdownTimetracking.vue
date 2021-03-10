@@ -20,7 +20,7 @@
         </CDropdownHeader>
         <Stopwatch/>
         <div class="p-3 border-top" v-for="entry in timeEntries" >
-            <TimeEntry :entry="entry" :key="entry.id"/>
+            <TimeEntry :entry-prop="entry" :key="entry.id"/>
         </div>
     </CDropdown>
 </template>
@@ -45,7 +45,7 @@ export default {
     methods: {
         setTimeEntries: function () {
             let entries
-            axios.getAll('/time-entries').then(res => {
+            axios.getAll('/me/time-entries').then(res => {
                 entries = res.data
                 this.timeEntries = Object
                     .keys(entries)
@@ -59,15 +59,16 @@ export default {
                         return 1
                     });
             });
-
         }
     },
     mounted() {
         this.setTimeEntries()
         Echo.channel('user-timers')
-            .listen('.Timers-Updated', () => {
+            .listen('.Timers-Updated', (res) => {
                 this.setTimeEntries()
+                console.log(res)
             })
+
     }
 }
 </script>

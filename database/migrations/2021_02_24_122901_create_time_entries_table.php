@@ -23,8 +23,8 @@ class CreateTimeEntriesTable extends Migration
             $table->foreignUuid('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
 
-            $table->timestamp('start');
-            $table->timestamp('end')->nullable();
+            $table->dateTime('start');
+            $table->dateTime('end')->nullable();
             $table->string('description', 250);
 
             $table->timestamps();

@@ -1,6 +1,6 @@
 <template>
     <CHeaderNav class="d-md-down-none mr-auto">
-      <CHeaderNavItem 
+      <CHeaderNavItem
         v-for="n in nav"
         v-bind:key="n.name"
       >
@@ -20,7 +20,7 @@
               {{ n.name }}
             </a>
           </template>
-          <CDropdownItem 
+          <CDropdownItem
             v-for="d in n._children"
             v-bind:key="d.name"
             :href="'#' + d.to"
@@ -43,7 +43,7 @@ export default {
       //minimize: false,
       nav: navigation,
       //show: true,
-      buffor: [],
+      buffer: [],
     }
   },
   methods: {
@@ -65,19 +65,19 @@ export default {
                    name:   data['elements'][i]['name'],
                    to:     data['elements'][i]['href'],
                    icon:   data['elements'][i]['icon']
-            } 
+            }
           );
         }
       }
       return result;
     },
     rebuildData(data){
-      this.buffor = [];
+      this.buffer = [];
       for(let k=0; k<data.length; k++){
         switch(data[k]['slug']){
           case 'link':
             if(data[k]['href'].indexOf('http') !== -1){
-              this.buffor.push(
+              this.buffer.push(
                   {
                       _name: 'CSidebarNavItem',
                       name: data[k]['name'],
@@ -87,7 +87,7 @@ export default {
                   }
               );
             }else{
-              this.buffor.push(
+              this.buffer.push(
                   {
                       _name: 'CSidebarNavItem',
                       name: data[k]['name'],
@@ -98,7 +98,7 @@ export default {
             }
           break;
           case 'title':
-            this.buffor.push(
+            this.buffer.push(
               {
                 _name: 'CSidebarNavTitle',
                 _children: [data[k]['name']]
@@ -106,11 +106,11 @@ export default {
             );
           break;
           case 'dropdown':
-            this.buffor.push( this.dropdown(data[k]) );
+            this.buffer.push( this.dropdown(data[k]) );
           break;
         }
       }
-      return this.buffor;
+      return this.buffer;
     }
   },
   mounted () {

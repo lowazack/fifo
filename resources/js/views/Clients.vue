@@ -25,13 +25,12 @@ export default {
     }
   },
   mounted() {
-    let vm = this;
     let loadJobs = axios.getAll('/jobs').then(res => {
-      vm.setJobs(res.data)
+      this.setJobs(res.data)
     });
 
-    Promise.all([loadMyJobs, loadAllJobs]).then(function() {
-      vm.jobsLoading = false;
+    Promise.all([loadJobs]).then(() => {
+      this.jobsLoading = false;
     });
   },
   methods: {

@@ -130,6 +130,7 @@ export default {
             this.saving = true;
             axios.post(`/time-entries`, this.entryFormObject)
                 .then((res) => {
+                    console.log(res)
                     this.saving = false;
                     this.timeEntry = TimeEntryModel
                 })
@@ -147,7 +148,7 @@ export default {
             this.activities = res.data;
         })
 
-        axios.getAll(`/tasks`).then(res => {
+        axios.getAll(`/me/tasks`).then(res => {
             let distinctJobs = []
             let result = [];
 

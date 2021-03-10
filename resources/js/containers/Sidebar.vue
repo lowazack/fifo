@@ -1,6 +1,6 @@
 <template>
-  <CSidebar 
-    fixed 
+  <CSidebar
+    fixed
     :minimize="minimize"
     unfoldable
     :show="show"
@@ -19,7 +19,7 @@
     </CSidebarBrand>
     <CRenderFunction flat :content-to-render="nav"/>
     <CSidebarFooter class="p-0">
-      <CSidebarNav> 
+      <CSidebarNav>
         <CSidebarNavItem to="/settings" icon="cil-settings" name="Settings" />
       </CSidebarNav>
     </CSidebarFooter>
@@ -34,19 +34,17 @@ export default {
   name: 'Sidebar',
   data () {
     return {
-      //minimize: false,
       nav: navigation,
       menu: true,
-      //show: true,
-      buffor: [],
+      buffer: [],
     }
   },
   computed: {
     show () {
-      return this.$store.state.sidebarShow 
+      return this.$store.state.sidebarShow
     },
     minimize () {
-      return this.$store.state.sidebarMinimize 
+      return this.$store.state.sidebarMinimize
     }
   },
   methods: {
@@ -75,14 +73,14 @@ export default {
                    name:   data['elements'][i]['name'],
                    to:     data['elements'][i]['href'],
                    icon:   data['elements'][i]['icon']
-            } 
+            }
           );
         }
       }
       return result;
     },
     rebuildData(data){
-      this.buffor = [{    
+      this.buffer = [{
         _name: 'CSidebarNav',
         _children: []
       }];
@@ -90,7 +88,7 @@ export default {
         switch(data[k]['slug']){
           case 'link':
             if(data[k]['href'].indexOf('http') !== -1){
-              this.buffor[0]._children.push(
+              this.buffer[0]._children.push(
                   {
                       _name: 'CSidebarNavItem',
                       name: data[k]['name'],
@@ -100,7 +98,7 @@ export default {
                   }
               );
             }else{
-              this.buffor[0]._children.push(
+              this.buffer[0]._children.push(
                   {
                       _name: 'CSidebarNavItem',
                       name: data[k]['name'],
@@ -111,7 +109,7 @@ export default {
             }
           break;
           case 'title':
-            this.buffor[0]._children.push(
+            this.buffer[0]._children.push(
               {
                 _name: 'CSidebarNavTitle',
                 _children: [data[k]['name']]
@@ -119,11 +117,11 @@ export default {
             );
           break;
           case 'dropdown':
-            this.buffor[0]._children.push( this.dropdown(data[k]) );
+            this.buffer[0]._children.push( this.dropdown(data[k]) );
           break;
         }
       }
-      return this.buffor;
+      return this.buffer;
     }
   },
   mounted () {

@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\TimeEntry;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -15,16 +16,6 @@ class UserTimersUpdated implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * @return Channel
      */
     public function broadcastOn(): Channel
@@ -36,4 +27,5 @@ class UserTimersUpdated implements ShouldBroadcast
     {
         return 'Timers-Updated';
     }
+
 }

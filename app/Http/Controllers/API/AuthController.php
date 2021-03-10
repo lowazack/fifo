@@ -63,8 +63,8 @@ class AuthController extends Controller
     /**
      * Get the response for a successful password reset link.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $response
+     * @param \Illuminate\Http\Request $request
+     * @param string $response
      * @return \Illuminate\Http\RedirectResponse|JsonResponse
      */
     protected function sendResetLinkResponse(Request $request, $response)
@@ -75,14 +75,19 @@ class AuthController extends Controller
     /**
      * Get the response for a failed password reset link.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $response
+     * @param \Illuminate\Http\Request $request
+     * @param string $response
      * @return \Illuminate\Http\RedirectResponse|JsonResponse
      */
     protected function sendResetLinkFailedResponse(Request $request, $response)
     {
 
-        return response()->json(['message' => 'We were unable to send the password reset.', 'errors' => ['email' => trans($response)]], 400);
+        return response()->json(
+            [
+                'message' => 'We were unable to send the password reset.',
+                'errors' => ['email' => trans($response)]
+            ], 400
+        );
     }
 
     /**
@@ -99,8 +104,8 @@ class AuthController extends Controller
     /**
      * Reset the given user's password.
      *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
-     * @param  string  $password
+     * @param \Illuminate\Contracts\Auth\CanResetPassword $user
+     * @param string $password
      * @return void
      */
     protected function resetPassword($user, $password)
@@ -115,8 +120,8 @@ class AuthController extends Controller
     /**
      * Get the response for a successful password reset.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $response
+     * @param \Illuminate\Http\Request $request
+     * @param string $response
      * @return \Illuminate\Http\RedirectResponse|JsonResponse
      */
     protected function sendResetResponse(Request $request, $response)
@@ -127,8 +132,8 @@ class AuthController extends Controller
     /**
      * Get the response for a failed password reset.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $response
+     * @param \Illuminate\Http\Request $request
+     * @param string $response
      * @return \Illuminate\Http\RedirectResponse|JsonResponse
      */
     protected function sendResetFailedResponse(Request $request, $response)

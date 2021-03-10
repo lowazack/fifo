@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\OrderByStartDate;
@@ -10,6 +11,9 @@ use App\Traits\OrderByStartDate;
 class TimeEntry extends BaseModel
 {
     use SoftDeletes, OrderByStartDate, Uuid;
+
+    protected $keyType = 'string';
+    public $incrementing = false;
 
     /**
      * The attributes that are mass assignable.
@@ -61,16 +65,14 @@ class TimeEntry extends BaseModel
      *
      * @var array
      */
-    protected $searchable = [
-    ];
+    protected $searchable = [];
 
     /**
      * The default values for attributes on this model
      *
      * @var array
      */
-    protected $attributes = [
-    ];
+    protected $attributes = [];
 
     public function task()
     {
@@ -82,50 +84,38 @@ class TimeEntry extends BaseModel
         return $this->belongsTo('App\Models\User');
     }
 
-    public function activity()
+    public function activity(): BelongsTo
     {
         return $this->belongsTo('App\Models\Activity');
     }
 
-    public function getStatusAttribute()
+    public function getStatusAttribute(): string
     {
-
         return $this->end ? 'active' : 'closed';
-
     }
 
     public function getMinutesAttribute()
     {
-
         $diff = ($this->end) ? strtotime($this->end) - strtotime($this->start) : time() - strtotime($this->start);
-
         return floor($diff / 60 % 60);
-
     }
 
     public function getDurationAttribute()
     {
-
         $diff = ($this->end) ? strtotime($this->end) - strtotime($this->start) : time() - strtotime($this->start);
-
         $hours = floor($diff / 3600);
         $mins = floor($diff / 60 % 60);
-
         return str_pad($hours, 2, '0', STR_PAD_LEFT) . ':' . str_pad($mins, 2, '0', STR_PAD_LEFT);
-
     }
 
     public function setDurationAttribute()
     {
-
         if (!empty($this->duration)) {
-
             $hours = explode(':', $this->duration)[0];
             $seconds = explode(':', $this->duration)[1];
 
             $this->start = new DateTime($this->start);
             $this->end = $this->start->add(new \DateInterval(('PT' . $hours . 'H' . $seconds . 'S')));
-
         }
         unset($this->duration);
     }

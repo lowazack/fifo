@@ -16,7 +16,7 @@ class TimerObserver
      */
     public function created(TimeEntry $timeEntry)
     {
-//        event(new TeamTimersUpdated());
+
         event(new UserTimersUpdated());
     }
 
