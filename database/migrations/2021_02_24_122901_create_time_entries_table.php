@@ -15,7 +15,7 @@ class CreateTimeEntriesTable extends Migration
     {
         Schema::create('time_entries', function (Blueprint $table) {
 
-            $table->uuid('id');
+            $table->uuid('id')->primary();
 
             $table->foreignUuid('task_id')->nullable();
             $table->foreign('task_id')->references('id')->on('tasks');

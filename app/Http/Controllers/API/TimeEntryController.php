@@ -22,10 +22,9 @@ class TimeEntryController extends APIController
 
     public function store(Request $request, ...$resources)
     {
-        $openTimers = TimeEntry::where('end', null)
+        $openTimers = TimeEntry::where('is_active', true)
             ->where('user_id', $request->user()->id)
             ->get();
-
         foreach ($openTimers as $timer) {
             $timer->end = new Carbon();
             $timer->save();
@@ -37,11 +36,14 @@ class TimeEntryController extends APIController
         $entry->save();
 
         return response()->json($openTimers);
+
     }
 
     public function myTimeEntries(): JsonResponse
     {
-        $user = auth()->guard('api')->user()->id;
+        $user = auth()
+            ->guard('api')
+            ->user()->id;
 
         $entries = TimeEntry::where('user_id', '=', $user)
             ->get();

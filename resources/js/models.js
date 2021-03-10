@@ -33,7 +33,8 @@ const TimeEntryModel = {
 	start: null,
 	end: null,
 	duration: null,
-	minutes: '0'
+	minutes: '0',
+    isActive: true
 }
 
 module.exports = {

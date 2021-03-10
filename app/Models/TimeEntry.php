@@ -48,8 +48,7 @@ class TimeEntry extends BaseModel
      *
      * @var array
      */
-    protected $casts = [
-    ];
+    protected $casts = [];
 
     /**
      * The attributes that we autmatically append to the model
@@ -57,7 +56,7 @@ class TimeEntry extends BaseModel
      * @var array
      */
     protected $with = [
-        'task', 'user', 'activity'
+        'task', 'user', 'activity', 'time_tracking'
     ];
 
     /**
@@ -82,6 +81,11 @@ class TimeEntry extends BaseModel
     public function user()
     {
         return $this->belongsTo('App\Models\User');
+    }
+
+    public function time_tracking()
+    {
+        return $this->hasMany('App\Models\TimeTracking');
     }
 
     public function activity(): BelongsTo
