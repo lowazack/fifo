@@ -47,6 +47,7 @@ export default {
             let entries
             axios.getAll('/me/time-entries').then(res => {
                 entries = res.data
+                // console.log(JSON.parse(res.data[0].duration)[0])
                 this.timeEntries = Object
                     .keys(entries)
                     .map((key) => entries[key])

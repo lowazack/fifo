@@ -4,6 +4,7 @@ namespace App\Models;
 
 use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\OrderByStartDate;
@@ -30,7 +31,7 @@ class TimeEntry extends BaseModel
      * @var array
      */
     protected $visible = [
-        'id', 'task_id', 'activity_id', 'activity', 'user_id', 'user', 'task', 'start', 'end', 'minutes', 'duration', 'description'
+        'id', 'task_id', 'activity_id', 'activity', 'user_id', 'user', 'task', 'start', 'end', 'minutes', 'duration', 'description', 'is_active'
     ];
 
     /**
@@ -73,17 +74,17 @@ class TimeEntry extends BaseModel
      */
     protected $attributes = [];
 
-    public function task()
+    public function task(): BelongsTo
     {
         return $this->belongsTo('App\Models\Task');
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo('App\Models\User');
     }
 
-    public function time_tracking()
+    public function time_tracking(): HasMany
     {
         return $this->hasMany('App\Models\TimeTracking');
     }
@@ -104,8 +105,10 @@ class TimeEntry extends BaseModel
         return floor($diff / 60 % 60);
     }
 
-    public function getDurationAttribute()
+    public function getDurationAttribute(): string
     {
+//        return $taskTimers = TimeTracking::where('time_entry_id', $this->id)->get();
+
         $diff = ($this->end) ? strtotime($this->end) - strtotime($this->start) : time() - strtotime($this->start);
         $hours = floor($diff / 3600);
         $mins = floor($diff / 60 % 60);

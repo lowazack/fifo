@@ -24,7 +24,7 @@
         </div>
         <div class="pl-3" @click="playPause">
             <CIcon
-                v-if="entry.end === null"
+                v-if="entry.is_active"
                 size="lg"
                 class="align-top m-0 text-info"
                 name="cid-media-pause-circle"
@@ -59,7 +59,8 @@ export default {
     },
     methods: {
         playPause() {
-            console.log('afasdfasdfas')
+            console.log(`${this.entry.id}`)
+
             axios.get(`time-entries/pause-play/${this.entry.id}`)
                 .then(res => {
                     console.log(res)

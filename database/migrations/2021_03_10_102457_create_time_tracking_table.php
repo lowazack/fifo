@@ -25,7 +25,7 @@ class CreateTimeTrackingTable extends Migration
             $table->dateTime('start');
             $table->dateTime('end')->nullable();
 
-            $table->boolean('isOverride')->nullable();
+            $table->boolean('is_override')->default(false);
 
         });
     }
