@@ -17,7 +17,7 @@ class TimerObserver
      */
     public function created(TimeEntry $timeEntry)
     {
-        event(new UserTimersUpdated());
+        event(new TimerUpdated($timeEntry));
     }
 
     /**
@@ -33,7 +33,6 @@ class TimerObserver
      */
     public function deleted(TimeEntry $timeEntry)
     {
-        //
     }
 
     /**
@@ -41,7 +40,6 @@ class TimerObserver
      */
     public function restored(TimeEntry $timeEntry)
     {
-        //
     }
 
     /**
@@ -49,6 +47,5 @@ class TimerObserver
      */
     public function forceDeleted(TimeEntry $timeEntry)
     {
-        //
     }
 }

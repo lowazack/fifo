@@ -30,13 +30,6 @@ class TimeEntryController extends APIController
         foreach ($activeEntries as $activeEntry) {
             $activeEntry->end = new Carbon();
             $activeEntry->is_active = false;
-
-            $activeTimers = TimeTracking::where('time_entry_id', $activeEntry->id)
-                ->where('end', null)->get();
-            foreach ($activeTimers as $timer) {
-                $timer->end = new Carbon();
-                $timer->save();
-            }
             $activeEntry->save();
         }
 
@@ -44,12 +37,6 @@ class TimeEntryController extends APIController
         $entry->user_id = $request->user()->id;
 
         $entry->save();
-        $trackingRow = new TimeTracking();
-        $trackingRow->start = new carbon();
-        $trackingRow->time_entry_id = $entry->id;
-
-        $trackingRow->save();
-
         return response()->json($activeEntries);
 
     }
@@ -68,7 +55,6 @@ class TimeEntryController extends APIController
 
     public function pausePlay($id)
     {
-
         $user = auth()->guard('api')->user();
         $entry = TimeEntry::find($id);
 
@@ -79,8 +65,6 @@ class TimeEntryController extends APIController
             ], 400
             );
         }
-
-
         if ($entry->is_active) {
 
             $entry->is_active = false;
@@ -90,28 +74,27 @@ class TimeEntryController extends APIController
                 "message" => 'Timer Paused'
             ]);
         }
-        $activeEntries = TimeEntry::where('user_id', $entry->user_id)->where('is_active', true)->get();
 
+        $activeEntries = TimeEntry::where('user_id', $entry->user_id)->where('is_active', true)->get();
         foreach ($activeEntries as $activeEntry) {
             $activeEntry->end = new Carbon();
             $activeEntry->is_active = false;
             $activeEntry->save();
         }
 
-        $activeTimers = TimeTracking::where('time_entry_id', $entry->id)->where('end', null)->get();
-
-        foreach ($activeTimers as $timer) {
-            $timer->end = new Carbon();
-            $timer->save();
-        }
-
-        $newTimer = new TimeTracking();
-        $newTimer->start = new carbon;
-        $newTimer->time_entry_id = $entry->id;
-        $newTimer->save();
-
-        $entry->is_active = true;
+        $entry->is_active = false;
         $entry->save();
+
+        $newEntry = new TimeEntry();
+        $newEntry->fill([
+            'activity_id' => $entry->activity_id,
+            'task_id' => $entry->task_id,
+            'user_id' => $entry->user_id,
+            'start' => new carbon,
+            'description' => $entry->description,
+            'is_active' => true
+        ]);
+        $newEntry->save();
 
         return response()->json([
             "message" => 'Timer Started'

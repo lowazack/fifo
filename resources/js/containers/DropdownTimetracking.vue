@@ -32,46 +32,30 @@ import TimeEntry from '@/components/timetracking/TimeEntry'
 import moment from "moment";
 
 export default {
-    name: 'DropdownTimetracking',
+    name: 'DropdownTimeTracking',
     components: {
         Stopwatch,
         TimeEntry
     },
     data() {
         return {
-            timeEntriesData: []
-        }
-    },
-    computed: {
-        timeEntries() {
-            return Object
-                .keys(this.timeEntriesData)
-                .map((key) => this.timeEntriesData[key])
-                .sort((a, b) => {
-                    if (a.is_active) {
-                        return -1
-                    } else if (moment(a.start).isAfter(b.start)) {
-                        return -1
-                    }
-                    return 1
-                })
+            timeEntries: []
         }
     },
     methods: {
         setTimeEntries: function () {
             let entries
             axios.getAll('/me/time-entries').then(res => {
-                this.timeEntriesData = entries = res.data;
+                this.timeEntries = entries = res.data;
             });
         }
     },
     mounted() {
-        console.log(this.$store.state)
-        Echo.channel(`my-timers-${this.entryProp.id}`)
+        this.setTimeEntries();
+        Echo.channel(`my-timers-${this.$store.state.user.id}`)
             .listen('.Timer-Updated', res => {
-                this.loading = false;
-                this.entryData = res.timer;
-            })
+                this.setTimeEntries();
+            });
     }
 }
 </script>

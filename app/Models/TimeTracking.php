@@ -10,5 +10,4 @@ class TimeTracking extends BaseModel
     use HasFactory;
 
     protected $table = 'time_tracking';
-
 }
