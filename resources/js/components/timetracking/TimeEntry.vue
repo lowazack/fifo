@@ -22,15 +22,21 @@
         <div class="pl-3">
             <h4 class="m-0">{{ entry.duration }}</h4>
         </div>
-        <div class="pl-3" @click="playPause">
+        <div class="pl-3" v-if="loading" >
+            <div class="spinner-border spinner-border-sm" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <div class="pl-3" v-else @click="playPause">
             <CIcon
                 v-if="entry.is_active"
                 size="lg"
                 class="align-top m-0 text-info"
                 name="cid-media-pause-circle"
-                @click="playPause"
             />
-            <CIcon v-else size="lg" class="align-top m-0" name="cid-media-play-circle" />
+            <CIcon
+                v-else size="lg"
+                class="align-top m-0" name="cid-media-play-circle" />
         </div>
     </div>
 </template>
@@ -48,6 +54,7 @@ export default {
     components: {},
     data() {
         return {
+            loading: false,
             entryData: null
         }
     },
@@ -59,12 +66,8 @@ export default {
     },
     methods: {
         playPause() {
-            console.log(`${this.entry.id}`)
-
-            axios.get(`time-entries/pause-play/${this.entry.id}`)
-                .then(res => {
-                    console.log(res)
-                })
+            this.loading = true;
+            axios.get(`time-entries/pause-play/${this.entry.id}`);
         }
     }
 }

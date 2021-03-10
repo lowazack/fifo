@@ -82,12 +82,6 @@ class TimeEntryController extends APIController
 
 
         if ($entry->is_active) {
-            $activeTimers = TimeTracking::where('time_entry_id', $entry->id)->where('end', null)->get();
-
-            foreach ($activeTimers as $timer) {
-                $timer->end = new Carbon();
-                $timer->save();
-            }
 
             $entry->is_active = false;
             $entry->end = new Carbon();
@@ -96,11 +90,26 @@ class TimeEntryController extends APIController
                 "message" => 'Timer Paused'
             ]);
         }
+        $activeEntries = TimeEntry::where('user_id', $entry->user_id)->where('is_active', true)->get();
+
+        foreach ($activeEntries as $activeEntry) {
+            $activeEntry->end = new Carbon();
+            $activeEntry->is_active = false;
+            $activeEntry->save();
+        }
+
+        $activeTimers = TimeTracking::where('time_entry_id', $entry->id)->where('end', null)->get();
+
+        foreach ($activeTimers as $timer) {
+            $timer->end = new Carbon();
+            $timer->save();
+        }
 
         $newTimer = new TimeTracking();
         $newTimer->start = new carbon;
         $newTimer->time_entry_id = $entry->id;
         $newTimer->save();
+
         $entry->is_active = true;
         $entry->save();
 

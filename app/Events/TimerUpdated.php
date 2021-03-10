@@ -18,24 +18,25 @@ class TimerUpdated implements ShouldBroadcast
 
     public $timer;
 
-    private $name;
 
     /**
-     * Timer constructor.
-     * @param TimeEntry $timer
-     * @param $name
+     * TimerUpdated constructor.
+     * @param $timeEntry
      */
-    public function __construct()
+    public function __construct($timeEntry)
     {
-//        $this->timer = $timer;
+        $this->timer = $timeEntry;
     }
 
     /**
-     * @return Channel
+     * @return Channel[]
      */
-    public function broadcastOn(): Channel
+    public function broadcastOn(): array
     {
-        return new Channel('timers');
+        return [
+            new Channel('timer-'.$this->timer->id),
+            new Channel('my-timer-'.$this->timer->user_id)
+        ];
     }
 
     /**
@@ -43,6 +44,6 @@ class TimerUpdated implements ShouldBroadcast
      */
     public function broadcastAs(): string
     {
-        return 'timer-updated';
+        return 'Timer-Updated';
     }
 }

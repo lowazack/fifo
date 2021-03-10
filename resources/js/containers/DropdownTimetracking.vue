@@ -39,37 +39,39 @@ export default {
     },
     data() {
         return {
-            timeEntries: []
+            timeEntriesData: []
+        }
+    },
+    computed: {
+        timeEntries() {
+            return Object
+                .keys(this.timeEntriesData)
+                .map((key) => this.timeEntriesData[key])
+                .sort((a, b) => {
+                    if (a.is_active) {
+                        return -1
+                    } else if (moment(a.start).isAfter(b.start)) {
+                        return -1
+                    }
+                    return 1
+                })
         }
     },
     methods: {
         setTimeEntries: function () {
             let entries
             axios.getAll('/me/time-entries').then(res => {
-                entries = res.data
-                // console.log(JSON.parse(res.data[0].duration)[0])
-                this.timeEntries = Object
-                    .keys(entries)
-                    .map((key) => entries[key])
-                    .sort((a, b) => {
-                        if (a.end === null) {
-                            return -1
-                        } else if (moment(a.start).isAfter(b.start)) {
-                            return -1
-                        }
-                        return 1
-                    });
+                this.timeEntriesData = entries = res.data;
             });
         }
     },
     mounted() {
-        this.setTimeEntries()
-        Echo.channel('user-timers')
-            .listen('.Timers-Updated', (res) => {
-                this.setTimeEntries()
-                console.log(res)
+        console.log(this.$store.state)
+        Echo.channel(`my-timers-${this.entryProp.id}`)
+            .listen('.Timer-Updated', res => {
+                this.loading = false;
+                this.entryData = res.timer;
             })
-
     }
 }
 </script>

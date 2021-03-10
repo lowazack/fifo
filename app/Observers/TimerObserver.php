@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Events\TeamTimersUpdated;
+use App\Events\TimerUpdated;
 use App\Events\UserTimersUpdated;
 use App\Models\TimeEntry;
 
@@ -16,7 +17,6 @@ class TimerObserver
      */
     public function created(TimeEntry $timeEntry)
     {
-
         event(new UserTimersUpdated());
     }
 
@@ -25,7 +25,7 @@ class TimerObserver
      */
     public function updated(TimeEntry $timeEntry)
     {
-
+        event(new TimerUpdated($timeEntry));
     }
 
     /**
